@@ -1,0 +1,3 @@
+include:
+  - project: 'distribusion/common/gitlab-ci'
+    file: 'airflow-worker.yaml'

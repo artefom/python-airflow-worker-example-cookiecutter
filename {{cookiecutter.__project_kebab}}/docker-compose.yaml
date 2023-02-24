@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+
+  app:
+    image: local/distribusion/{{cookiecutter.__project_kebab}}:latest
+    container_name: {{cookiecutter.__project_kebab}}
+    build:
+      context: .
+      dockerfile: .deploy/docker/Dockerfile
+      args:
+        GITLAB_REGISTRY_USERNAME: $GITLAB_REGISTRY_USERNAME
+        GITLAB_REGISTRY_PASSWORD: $GITLAB_REGISTRY_PASSWORD
+    env_file: .env

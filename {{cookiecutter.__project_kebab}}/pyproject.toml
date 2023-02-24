@@ -1,0 +1,88 @@
+[build-system]
+requires = ["poetry-core>=1.2.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry]
+name = "{{cookiecutter.__project_kebab}}"
+version = "0.1.0"
+description = "{{cookiecutter.description}}"
+authors = ["{{cookiecutter.author_full_name}} <{{cookiecutter.author_email}}>"]
+
+
+[tool.poetry.dependencies]
+# Server deps
+python = "^3.11"
+
+
+# Test dependencies
+# ------------------------------------------------
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.1"
+pytest-cov = "^4.0.0"
+
+
+# Lint dependencies
+# ------------------------------------------------
+[tool.poetry.group.lint]
+optional = true
+
+[tool.poetry.group.lint.dependencies]
+pytest = "^7.2.1"
+pyright = "^1.1.294"
+pylint = "^2.16.2"
+
+
+# Sources
+# ------------------------------------------------
+[[tool.poetry.source]]
+name = "distribusion"
+url = "https://gitlab.com/api/v4/groups/15793598/-/packages/pypi/simple"
+default = false
+secondary = true
+
+
+# Linting
+# ------------------------------------------------
+[tool.poetry.scripts]
+{{cookiecutter.__project_kebab}} = '{{cookiecutter.__project_slug}}.main:main'
+
+
+[tool.isort]
+profile = "black"
+
+
+[tool.pylint.messages_control]
+disable = "C0115, R0903, C0116, R1734, R1735, E0401, E0611, R0913, R0902"
+
+
+[tool.pylint.format]
+max-line-length = "88"
+
+
+[tool.black]
+include = "{{cookiecutter.__project_slug}}"
+
+
+# At the moment, this might break the CI
+# + In general, pyright and env are to be configured by user
+# [tool.pyright]
+# include = ["{{cookiecutter.__project_slug}}"]
+# venvPath = "."
+# venv = ".venv"
+
+
+# Tests
+# ------------------------------------------------
+[tool.coverage.run]
+source = ["{{cookiecutter.__project_slug}}"]
+
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
